@@ -10,7 +10,7 @@ class TestAutoTrader(unittest.TestCase):
 
     def test_place_regular_order(self):
         """
-        Test that it can sum a list of integers
+        Test placing a regular order.
         """
         api = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
         
