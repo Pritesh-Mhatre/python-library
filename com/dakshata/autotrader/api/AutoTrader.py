@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Main class which provides all of AutoTrader Web's API functions.
+"""
+Main class which provides all of AutoTrader Web's API functions.
 
 Use the createInstance() method to create an instance of this class.
 You can then re-use this instance throughout your application.
@@ -7,6 +8,8 @@ There is no need to recreate the instance multiple times.
 """
 
 import requests
+
+from com.dakshata.data.model.common.OperationResponse import OperationResponse
 
 class AutoTrader:
         
@@ -79,4 +82,10 @@ class AutoTrader:
             'price': price,
             'triggerPrice': triggerPrice}
         
-        return self.execute(AutoTrader.__TRADING_URI + "/placeRegularOrder", data)
+        response = self.execute(AutoTrader.__TRADING_URI + "/placeRegularOrder", data)
+        
+        resultDict = response.json()
+        
+        result = OperationResponse(**resultDict)
+        
+        return result
