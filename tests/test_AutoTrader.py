@@ -4,7 +4,7 @@ from com.dakshata.autotrader.api.AutoTrader import AutoTrader
 
 class TestAutoTrader(unittest.TestCase):
 
-    __PROD_SERVER = 'https://stocksdeveloper.in:9017/'
+    __PROD_SERVER = 'https://stocksdeveloper.in:9017'
     
     __TEST_SERVER = 'http://localhost:9017'
     
@@ -12,7 +12,8 @@ class TestAutoTrader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
+        #TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
+        #TestAutoTrader.__API = AutoTrader.create_instance('<api-key>', TestAutoTrader.__PROD_SERVER)
         
     def test_place_regular_order(self):
         """
@@ -21,7 +22,7 @@ class TestAutoTrader(unittest.TestCase):
         response = TestAutoTrader.__API.place_regular_order( \
             '159401', 'NSE', 'WIPRO', 'BUY', 'LIMIT', 'INTRADAY', 1, 330.35, 0.0)
         
-        # print(result)
+        # print(response)
         
         self.assertTrue(response.success())
         self.assertIsNotNone(response.result)
@@ -79,7 +80,7 @@ class TestAutoTrader(unittest.TestCase):
         self.assertIsNotNone(response.result)
         self.assertIsInstance(response.result, list)        
         
-        print(*response.result, sep = "\n\n")
+        # print(*response.result, sep = "\n\n")
         
     def test_read_platform_positions(self):
         """
@@ -93,7 +94,7 @@ class TestAutoTrader(unittest.TestCase):
         self.assertIsNotNone(response.result)
         self.assertIsInstance(response.result, list)        
         
-        print(*response.result, sep = "\n\n")
+        # print(*response.result, sep = "\n\n")
     
 if __name__ == '__main__':
     unittest.main()
