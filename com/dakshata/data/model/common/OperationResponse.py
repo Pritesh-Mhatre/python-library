@@ -13,3 +13,8 @@ class OperationResponse:
         
     def success(self):
         return self.status
+        
+    def __str__(self):
+        return "OperationResponse[Result = {0}, Status = {1}, Message = {2}, Command Id = {3}]".format( \
+            self.result, self.status, self.message, self.command_id)
+        
