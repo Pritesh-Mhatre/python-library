@@ -66,6 +66,34 @@ class TestAutoTrader(unittest.TestCase):
         self.assertIsInstance(response.result, list)        
         
         # print(*response.result, sep = "\n\n")
+        
+    def test_read_platform_orders(self):
+        """
+        Test reading orders data.
+        """        
+        response = TestAutoTrader.__API.read_platform_orders('159401')
+        
+        # print(response)
+        
+        self.assertTrue(response.success())
+        self.assertIsNotNone(response.result)
+        self.assertIsInstance(response.result, list)        
+        
+        print(*response.result, sep = "\n\n")
+        
+    def test_read_platform_positions(self):
+        """
+        Test reading positions data.
+        """        
+        response = TestAutoTrader.__API.read_platform_positions('159401')
+        
+        # print(response)
+        
+        self.assertTrue(response.success())
+        self.assertIsNotNone(response.result)
+        self.assertIsInstance(response.result, list)        
+        
+        print(*response.result, sep = "\n\n")
     
 if __name__ == '__main__':
     unittest.main()

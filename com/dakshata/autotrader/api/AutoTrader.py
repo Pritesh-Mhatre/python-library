@@ -11,6 +11,8 @@ import requests
 
 from com.dakshata.data.model.common.OperationResponse import OperationResponse
 from com.dakshata.trading.model.platform.PlatformMargin import PlatformMargin
+from com.dakshata.trading.model.platform.PlatformOrder import PlatformOrder
+from com.dakshata.trading.model.platform.PlatformPosition import PlatformPosition
 
 class AutoTrader:
 
@@ -242,5 +244,39 @@ class AutoTrader:
             for m in response.result:
                 margins.append(PlatformMargin(**m))
             response.result = margins
+        
+        return response
+
+    def read_platform_orders(self, pseudo_account):
+        """
+        API function to read orders from your trading platform (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/read-orders/
+        """
+
+        response = self.__get(pseudo_account, "/readPlatformOrders")
+        
+        if response.result and isinstance(response.result, list):
+            orders = []
+            for m in response.result:
+                orders.append(PlatformOrder(**m))
+            response.result = orders
+        
+        return response
+
+    def read_platform_positions(self, pseudo_account):
+        """
+        API function to read positions from your trading platform (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/read-positions/
+        """
+
+        response = self.__get(pseudo_account, "/readPlatformPositions")
+        
+        if response.result and isinstance(response.result, list):
+            positions = []
+            for m in response.result:
+                positions.append(PlatformPosition(**m))
+            response.result = positions
         
         return response
