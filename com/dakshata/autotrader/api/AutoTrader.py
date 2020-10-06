@@ -70,10 +70,12 @@ class AutoTrader:
 
         return result
 
-    def __get(self, uri, data):
+    def __get(self, pseudo_account, uri):
         """
         Private method to post data to the server.
         """
+        data = {'pseudoAccount': pseudo_account}
+        
         return self.__request(uri, data, lambda u, h, d: requests.get(u, headers=h, params=d))
 
     def __post(self, uri, data):
