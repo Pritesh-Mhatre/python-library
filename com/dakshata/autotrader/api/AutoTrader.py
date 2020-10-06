@@ -54,29 +54,46 @@ class AutoTrader:
             self.service_url = service_url
             AutoTrader.__instances[api_key] = self
 
-    def execute(self, uri, data):
+    def __post(self, uri, data):
         """
-        Executes an API request.
+        Private method to post data to the server.
         """
-
         url = self.service_url + uri
         headers = {'api-key': self.api_key}
 
-        r = requests.post(url, headers=headers, data=data)
-
-        json = r.json()
-
-        return json
-
-    def __place_order(self, uri, data):
-        """
-        Private method to place an order.
-        """
-        response = self.execute(AutoTrader.__TRADING_URI + uri, data)
-
+        request = requests.post(url, headers=headers, data=data)
+        response = request.json()
         result = OperationResponse(**response)
 
         return result
+
+    def __cancel_order(self, uri, pseudoAccount, platform_id):
+        """
+        Private method to cancel an order.
+        """
+
+        data = {'pseudoAccount': pseudoAccount, \
+            'platformId': platform_id}
+
+        return self.__post(uri, data)
+
+    def cancel_order_by_platform_id(self, pseudoAccount, platform_id):
+        """
+        Cancels an open order (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/cancel-order/
+        """
+
+        return self.__cancel_order("/cancelOrderByPlatformId", pseudoAccount, platform_id)
+
+    def cancel_child_orders_by_platform_id(self, pseudoAccount, platform_id):
+        """
+        This API function is useful for exiting from an open bracket or cover order position (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/cancel-child-orders/
+        """
+
+        return self.__cancel_order("/cancelChildOrdersByPlatformId", pseudoAccount, platform_id)
 
     def place_regular_order(self, pseudoAccount, \
             exchange, symbol, tradeType, orderType, \
@@ -97,7 +114,7 @@ class AutoTrader:
             'price': price,
             'triggerPrice': triggerPrice}
 
-        return self.__place_order("/placeRegularOrder", data)
+        return self.__post("/placeRegularOrder", data)
 
     def place_bracket_order(self, pseudoAccount, \
             exchange, symbol, tradeType, orderType, \
@@ -121,7 +138,7 @@ class AutoTrader:
             'stoploss': stoploss,
             'trailingStoploss': trailingStoploss}
 
-        return self.__place_order("/placeBracketOrder", data)            
+        return self.__post("/placeBracketOrder", data)            
 
     def place_cover_order(self, pseudoAccount, \
             exchange, symbol, tradeType, orderType, \
@@ -141,5 +158,5 @@ class AutoTrader:
             'price': price,
             'triggerPrice': triggerPrice}
 
-        return self.__place_order("/placeCoverOrder", data)
+        return self.__post("/placeCoverOrder", data)
 
