@@ -10,6 +10,7 @@ There is no need to recreate the instance multiple times.
 import requests
 
 from com.dakshata.data.model.common.OperationResponse import OperationResponse
+from com.dakshata.trading.model.platform.PlatformMargin import PlatformMargin
 
 class AutoTrader:
 
@@ -234,4 +235,12 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/read-margins/
         """
 
-        return self.__get(pseudo_account, "/readPlatformMargins")
+        response = self.__get(pseudo_account, "/readPlatformMargins")
+        
+        if response.result and isinstance(response.result, list):
+            margins = []
+            for m in response.result:
+                margins.append(PlatformMargin(**m))
+            response.result = margins
+        
+        return response

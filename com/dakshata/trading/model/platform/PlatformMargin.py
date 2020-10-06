@@ -7,7 +7,7 @@ class PlatformMargin:
 
     def __init__(self, category, funds, utilized, \
         available, pseudoAccount, tradingAccount, \
-        stockBroker):
+        stockBroker, *args, **kwargs):
 
         self.category = category
         self.funds = funds
