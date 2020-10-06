@@ -47,7 +47,7 @@ class AutoTrader:
         """
 
         a = AutoTrader.__instances.get(api_key, None)
-        if a != None:
+        if a:
             raise Exception("Please use create_instance() method!")
         else:
             self.api_key = api_key
@@ -67,35 +67,57 @@ class AutoTrader:
 
         return result
 
-    def __cancel_order(self, uri, pseudoAccount, platform_id):
+    def __cancel_order(self, uri, pseudo_account, platform_id):
         """
         Private method to cancel an order.
         """
 
-        data = {'pseudoAccount': pseudoAccount, \
+        data = {'pseudoAccount': pseudo_account, \
             'platformId': platform_id}
 
         return self.__post(uri, data)
 
-    def cancel_order_by_platform_id(self, pseudoAccount, platform_id):
+    def cancel_order_by_platform_id(self, pseudo_account, platform_id):
         """
         Cancels an open order (see API docs).
 
         https://stocksdeveloper.in/documentation/api/cancel-order/
         """
 
-        return self.__cancel_order("/cancelOrderByPlatformId", pseudoAccount, platform_id)
+        return self.__cancel_order("/cancelOrderByPlatformId", pseudo_account, platform_id)
 
-    def cancel_child_orders_by_platform_id(self, pseudoAccount, platform_id):
+    def cancel_child_orders_by_platform_id(self, pseudo_account, platform_id):
         """
         This API function is useful for exiting from an open bracket or cover order position (see API docs).
 
         https://stocksdeveloper.in/documentation/api/cancel-child-orders/
         """
 
-        return self.__cancel_order("/cancelChildOrdersByPlatformId", pseudoAccount, platform_id)
+        return self.__cancel_order("/cancelChildOrdersByPlatformId", pseudo_account, platform_id)
 
-    def place_regular_order(self, pseudoAccount, \
+    def modify_order_by_platform_id(self, pseudo_account, platform_id, order_type=None, \
+        quantity=None, price=None, trigger_price=None):
+        """
+        Modifies an open order’s attributes like order type, quantity, price & trigger price (see API docs).
+        Pass only those parameters that you need to modify.
+
+        https://stocksdeveloper.in/documentation/api/modify-order/
+        """
+        data = {'pseudoAccount': pseudo_account, \
+            'platformId': platform_id}
+        
+        if order_type:
+            data['orderType'] = order_type
+        if quantity:
+            data['quantity'] = quantity
+        if price:
+            data['price'] = price
+        if trigger_price:
+            data['triggerPrice'] = trigger_price
+
+        return self.__post("/modifyOrderByPlatformId", data)
+
+    def place_regular_order(self, pseudo_account, \
             exchange, symbol, tradeType, orderType, \
             productType, quantity, price, triggerPrice=0.0):
         """
@@ -104,7 +126,7 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-regular-order/
         """
 
-        data = {'pseudoAccount': pseudoAccount, \
+        data = {'pseudoAccount': pseudo_account, \
             'exchange': exchange, \
             'symbol': symbol, \
             'tradeType': tradeType, \
@@ -116,7 +138,7 @@ class AutoTrader:
 
         return self.__post("/placeRegularOrder", data)
 
-    def place_bracket_order(self, pseudoAccount, \
+    def place_bracket_order(self, pseudo_account, \
             exchange, symbol, tradeType, orderType, \
             quantity, price, triggerPrice,
             target, stoploss, trailingStoploss=0.0):
@@ -126,7 +148,7 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-bracket-order/
         """
 
-        data = {'pseudoAccount': pseudoAccount, \
+        data = {'pseudoAccount': pseudo_account, \
             'exchange': exchange, \
             'symbol': symbol, \
             'tradeType': tradeType, \
@@ -140,7 +162,7 @@ class AutoTrader:
 
         return self.__post("/placeBracketOrder", data)            
 
-    def place_cover_order(self, pseudoAccount, \
+    def place_cover_order(self, pseudo_account, \
             exchange, symbol, tradeType, orderType, \
             productType, quantity, price, triggerPrice):
         """
@@ -149,7 +171,7 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-cover-order/
         """
 
-        data = {'pseudoAccount': pseudoAccount, \
+        data = {'pseudoAccount': pseudo_account, \
             'exchange': exchange, \
             'symbol': symbol, \
             'tradeType': tradeType, \
