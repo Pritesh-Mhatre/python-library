@@ -164,7 +164,7 @@ class AutoTrader:
 
     def place_cover_order(self, pseudo_account, \
             exchange, symbol, tradeType, orderType, \
-            productType, quantity, price, triggerPrice):
+            quantity, price, triggerPrice):
         """
         Places a cover order (see API docs).
 
