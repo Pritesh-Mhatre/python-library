@@ -16,7 +16,7 @@ class PlatformOrder(CoreOrder):
         parentOrderId, exchangeOrderId, averagePrice, \
         clientId, rawStatus, platformTime, exchangeTime, \
         pendingQuantity, filledQuantity, platform, \
-        status, nestRequestId):
+        status, nestRequestId, *args, **kwargs):
         
         super().__init__(id, tradeType, orderType, productType, \
             variety, validity, quantity, disclosedQuantity, \

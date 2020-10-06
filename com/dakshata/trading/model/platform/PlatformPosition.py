@@ -13,7 +13,7 @@ class PlatformPosition(Position):
         stockBroker, exchange, symbol, \
         independentExchange, independentSymbol, \
         category, ltp, platform, accountId, overnightQuantity, \
-        multiplier, realisedPnl, unrealisedPnl):
+        multiplier, realisedPnl, unrealisedPnl, *args, **kwargs):
 
         super().__init__(id, buyQuantity, sellQuantity, netQuantity, \
             type, pnl, mtm, buyValue, sellValue, netValue, \
