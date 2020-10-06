@@ -58,7 +58,7 @@ class AutoTrader:
         """
         Private method to post data to the server.
         """
-        url = self.service_url + uri
+        url = self.service_url + AutoTrader.__TRADING_URI + uri
         headers = {'api-key': self.api_key}
 
         request = requests.post(url, headers=headers, data=data)
