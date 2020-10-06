@@ -12,7 +12,7 @@ class TestAutoTrader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        #TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
+        TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
         #TestAutoTrader.__API = AutoTrader.create_instance('<api-key>', TestAutoTrader.__PROD_SERVER)
         
     def test_place_regular_order(self):
