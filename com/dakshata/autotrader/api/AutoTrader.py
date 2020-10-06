@@ -95,8 +95,8 @@ class AutoTrader:
 
         return self.__cancel_order("/cancelChildOrdersByPlatformId", pseudo_account, platform_id)
 
-    def modify_order_by_platform_id(self, pseudo_account, platform_id, order_type=None, \
-        quantity=None, price=None, trigger_price=None):
+    def modify_order_by_platform_id(self, pseudo_account, platform_id, \
+        order_type=None, quantity=None, price=None, trigger_price=None):
         """
         Modifies an open order’s attributes like order type, quantity, price & trigger price (see API docs).
         Pass only those parameters that you need to modify.
@@ -182,3 +182,30 @@ class AutoTrader:
 
         return self.__post("/placeCoverOrder", data)
 
+    def square_off_position(self, pseudo_account, \
+        position_category, position_type, exchange, symbol):
+        """
+        API function to square-off a position (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/square-off-position/
+        """
+
+        data = {'pseudoAccount': pseudo_account, \
+            'category': position_category, \
+            'type': position_type, \
+            'exchange': exchange, \
+            'symbol': symbol}
+
+        return self.__post("/squareOffPosition", data)
+
+    def square_off_portfolio(self, pseudo_account, position_category):
+        """
+        API function to square-off portfolio or account (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/square-off-portfolio/
+        """
+
+        data = {'pseudoAccount': pseudo_account, \
+            'category': position_category}
+
+        return self.__post("/squareOffPortfolio", data)
