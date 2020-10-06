@@ -54,18 +54,33 @@ class AutoTrader:
             self.service_url = service_url
             AutoTrader.__instances[api_key] = self
 
-    def __post(self, uri, data):
+    def __request(self, uri, data, request_lambda):
         """
         Private method to post data to the server.
         """
         url = self.service_url + AutoTrader.__TRADING_URI + uri
         headers = {'api-key': self.api_key}
 
-        request = requests.post(url, headers=headers, data=data)
+        request = request_lambda(url, headers, data)
         response = request.json()
+        
+        request.raise_for_status()
+        
         result = OperationResponse(**response)
 
         return result
+
+    def __get(self, uri, data):
+        """
+        Private method to post data to the server.
+        """
+        return self.__request(uri, data, lambda u, h, d: requests.get(u, headers=h, params=d))
+
+    def __post(self, uri, data):
+        """
+        Private method to post data to the server.
+        """
+        return self.__request(uri, data, lambda u, h, d: requests.post(u, headers=h, data=d))
 
     def __cancel_order(self, uri, pseudo_account, platform_id):
         """
@@ -209,3 +224,12 @@ class AutoTrader:
             'category': position_category}
 
         return self.__post("/squareOffPortfolio", data)
+
+    def read_platform_margins(self, pseudo_account):
+        """
+        API function to read margins from your trading platform (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/read-margins/
+        """
+
+        return self.__get(pseudo_account, "/readPlatformMargins")
