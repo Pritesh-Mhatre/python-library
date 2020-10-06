@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="AutoTrader-Web-API-Pritesh-Mhatre",
+    name="AutoTrader-Web-API-Stocks-Developer",
     version="1.0.0",
     author="Pritesh Mhatre",
     author_email="help@stocksdeveloper.in",
