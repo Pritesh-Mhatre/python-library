@@ -2,7 +2,7 @@
 """
 Main class which provides all of AutoTrader Web's API functions.
 
-Use the createInstance() method to create an instance of this class.
+Use the create_instance() method to create an instance of this class.
 You can then re-use this instance throughout your application.
 There is no need to recreate the instance multiple times.
 """
@@ -21,6 +21,8 @@ class AutoTrader:
     __ACCOUNT_URI = "/account"
 
     __instances = {}
+    
+    SERVER_URL = "https://stocksdeveloper.in:9017"
 
     @staticmethod 
     def create_instance(api_key, service_url):
