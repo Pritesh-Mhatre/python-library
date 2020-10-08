@@ -7,7 +7,10 @@ You can then re-use this instance throughout your application.
 There is no need to recreate the instance multiple times.
 """
 
+import sys
 import requests
+
+from json import JSONDecodeError
 
 from com.dakshata.data.model.common.OperationResponse import OperationResponse
 from com.dakshata.trading.model.platform.PlatformMargin import PlatformMargin
@@ -66,15 +69,38 @@ class AutoTrader:
         url = self.service_url + AutoTrader.__TRADING_URI + uri
         headers = {'api-key': self.api_key}
 
-        request = request_lambda(url, headers, data)
-        response = request.json()
-        
-        request.raise_for_status()
-        
-        result = OperationResponse(**response)
-
-        return result
-
+        try:
+            # Execute the request
+            response = request_lambda(url, headers, data)
+            
+            # Check for success
+            if(response.ok):
+                try:
+                    # Convert response to JSON
+                    jsonResponse = response.json()
+                    # Raise JSON conversion error
+                    response.raise_for_status()
+                    # Convert the JSON to python OperationResponse object
+                    result = OperationResponse(**jsonResponse)
+                    return result                    
+                except JSONDecodeError:
+                    print("ERROR: Failure while converting response to JSON.")
+                    print(response)
+                    raise
+                
+            else:
+                # A forbidden error is thrown when authentication fails
+                if(response.status_code == requests.codes.forbidden):
+                    message = "ERROR: Authentication failed. Your API Key is wrong."
+                    print(message)
+                    raise Exception(message)
+                else:
+                    response.raise_for_status()
+            
+        except:
+            print("ERROR: Unexpected error:", sys.exc_info()[0])
+            raise
+    
     def __get(self, pseudo_account, uri):
         """
         Private method to post data to the server.
