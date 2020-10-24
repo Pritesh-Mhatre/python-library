@@ -115,15 +115,26 @@ class AutoTrader:
         """
         return self.__request(uri, data, lambda u, h, d: requests.post(u, headers=h, data=d))
 
-    def __cancel_order(self, uri, pseudo_account, platform_id):
+    def __cancel_order(self, uri, pseudo_account, platform_id=None):
         """
         Private method to cancel an order.
         """
 
-        data = {'pseudoAccount': pseudo_account, \
-            'platformId': platform_id}
+        data = {'pseudoAccount': pseudo_account}
+
+        if platform_id:
+            data['platformId'] = platform_id
 
         return self.__post(uri, data)
+
+    def cancel_all_orders(self, pseudo_account):
+        """
+        Cancels all open orders from a given account (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/cancel-all-orders/
+        """
+
+        return self.__cancel_order("/cancelAllOrders", pseudo_account)
 
     def cancel_order_by_platform_id(self, pseudo_account, platform_id):
         """
