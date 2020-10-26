@@ -56,7 +56,7 @@ class TestAutoTrader(unittest.TestCase):
         """
         Test cancel order.
         """        
-        response = TestAutoTrader.__API.cancel_order_by_platform_id('159401', '201007000438034')
+        response = TestAutoTrader.__API.cancel_order_by_platform_id('159401', '201026000614309')
         
         # print(response)
         
@@ -68,6 +68,17 @@ class TestAutoTrader(unittest.TestCase):
         Test exit BO or CO order.
         """        
         response = TestAutoTrader.__API.cancel_child_orders_by_platform_id('159401', '201007000448051')
+        
+        # print(response)
+        
+        self.assertTrue(response.success())
+        self.assertIsNotNone(response.result)        
+        
+    def test_cancel_all_orders(self):
+        """
+        Test cancel all order.
+        """        
+        response = TestAutoTrader.__API.cancel_all_orders('159401')
         
         # print(response)
         
