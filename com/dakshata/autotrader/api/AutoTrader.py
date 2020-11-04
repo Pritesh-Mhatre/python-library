@@ -91,7 +91,7 @@ class AutoTrader:
             else:
                 # A forbidden error is thrown when authentication fails
                 if(response.status_code == requests.codes.forbidden):
-                    message = "ERROR: Authentication failed. Your API Key is wrong."
+                    message = "ERROR: Either your API Key is wrong or the user might be disabled."
                     print(message)
                     raise Exception(message)
                 else:
