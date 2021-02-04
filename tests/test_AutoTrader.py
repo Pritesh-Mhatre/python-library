@@ -2,6 +2,11 @@ import unittest
 
 from com.dakshata.autotrader.api.AutoTrader import AutoTrader
 
+# How to run?
+# 1. Add your API Key below in the placeholder
+# 2. From project home directory, run following command.
+#       python -m unittest tests.test_AutoTrader.TestAutoTrader.test_read_platform_orders
+#       Note: Write the name of the desired test case
 class TestAutoTrader(unittest.TestCase):
     
     __TEST_SERVER = 'http://localhost:9017'
@@ -12,6 +17,40 @@ class TestAutoTrader(unittest.TestCase):
     def setUpClass(cls):
         #TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
         TestAutoTrader.__API = AutoTrader.create_instance('<api-key>', AutoTrader.SERVER_URL)
+        
+    def printMargins(self, margins):
+        for o in margins:
+            pretty = "[Pseudo acc.: {}, Trading acc.: {}, Category: {}, Funds: {}, " + \
+                "Utilized: {}, Available: {}, Broker: {}]"
+            print(pretty.format(o.pseudo_account, o.trading_account, o.category,
+                o.funds, o.utilized, o.available, o.stock_broker))
+            print("\n----------------------------------------------------------------------\n")
+        
+    def printOrders(self, orders):
+        for o in orders:
+            pretty = "[Pseudo acc.: {}, Trading acc.: {}, Ind. exch: {}, Ind. symbol: {}, " + \
+                "Id: {}, Variety: {}, Trade type: {}, Order type: {}, Product type: {}, " + \
+                "Quantity: {}, Price: {}, Trigger price: {}, Status: {}, Pending qty.: {}, " + \
+                "Filled qty.: {}, Broker: {}, Platform: {}]"
+            print(pretty.format(o.pseudo_account, o.trading_account, o.independent_exchange, 
+                o.independent_symbol, o.id, o.variety, o.trade_type, o.order_type, o.product_type, 
+                o.quantity, o.price, o.trigger_price, o.status, o.pending_quantity, o.filled_quantity, 
+                o.stock_broker, o.platform))
+            print("\n----------------------------------------------------------------------\n")
+        
+    def printPositions(self, positions):
+        for o in positions:
+            pretty = "[Category: {}, Type: {}, Pseudo acc.: {}, Trading acc.: {}, " + \
+                "Ind. exch: {}, Ind. symbol: {}, Pnl: {}, Mtm: {}, Net qty.: {}, " + \
+                "Buy qty.: {}, Sell qty.: {}, Net value: {}, Buy value: {}, Sell value: {}, " + \
+                "Buy avg. price: {}, Sell avg. price: {}, Realised pnl: {}, " + \
+                "Unrealised pnl: {}, Broker: {}, Platform: {}]"
+            print(pretty.format(o.category, o.type, o.pseudo_account, o.trading_account, 
+                o.independent_exchange, o.independent_symbol, o.pnl, o.mtm, o.net_quantity, 
+                o.buy_quantity, o.sell_quantity, o.net_value, o.buy_value, o.sell_value, 
+                o.buy_avg_price, o.sell_avg_price, o.realised_pnl, o.unrealised_pnl,
+                o.stock_broker, o.platform))
+            print("\n----------------------------------------------------------------------\n")
         
     def test_place_regular_order(self):
         """
@@ -135,6 +174,7 @@ class TestAutoTrader(unittest.TestCase):
         self.assertIsInstance(response.result, list)        
         
         # print(*response.result, sep = "\n\n")
+        self.printMargins(response.result)
         
     def test_read_platform_orders(self):
         """
@@ -150,6 +190,8 @@ class TestAutoTrader(unittest.TestCase):
         
         # print(*response.result, sep = "\n\n")
         
+        self.printOrders(response.result)
+        
     def test_read_platform_positions(self):
         """
         Test reading positions data.
@@ -163,6 +205,8 @@ class TestAutoTrader(unittest.TestCase):
         self.assertIsInstance(response.result, list)        
         
         # print(*response.result, sep = "\n\n")
+        
+        self.printPositions(response.result)
     
 if __name__ == '__main__':
     unittest.main()
