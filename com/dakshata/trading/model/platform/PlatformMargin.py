@@ -5,14 +5,25 @@ Represents a margin object.
 
 class PlatformMargin:
 
-    def __init__(self, category, funds, utilized, \
-        available, pseudoAccount, tradingAccount, \
+    def __init__(self, category, funds, utilized, available, \
+        net, span, exposure, collateral, \
+        payin, payout, adhoc, realisedMtm, unrealisedMtm, \
+        pseudoAccount, tradingAccount, \
         stockBroker, *args, **kwargs):
 
         self.category = category
         self.funds = funds
         self.utilized = utilized
         self.available = available
+        self.net = net
+        self.span = span
+        self.exposure = exposure
+        self.collateral = collateral
+        self.payin = payin
+        self.payout = payout
+        self.adhoc = adhoc
+        self.realised_mtm = realisedMtm
+        self.unrealised_mtm = unrealisedMtm        
         self.pseudo_account = pseudoAccount
         self.trading_account = tradingAccount
         self.stock_broker = stockBroker
