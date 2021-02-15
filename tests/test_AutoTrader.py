@@ -21,9 +21,13 @@ class TestAutoTrader(unittest.TestCase):
     def printMargins(self, margins):
         for o in margins:
             pretty = "[Pseudo acc.: {}, Trading acc.: {}, Category: {}, Funds: {}, " + \
-                "Utilized: {}, Available: {}, Broker: {}]"
+                "Utilized: {}, Available: {}, Total: {}, Net: {}, Span: {}, " + \
+                "Exposure: {}, Collateral: {}, Payin: {}, Payout: {}, Adhoc: {}, " + \
+                "Real. Mtm: {}, Unreal. Mtm: {}, Broker: {}, ]"
             print(pretty.format(o.pseudo_account, o.trading_account, o.category,
-                o.funds, o.utilized, o.available, o.stock_broker))
+                o.funds, o.utilized, o.available, o.total, o.net, o.span, o.exposure, 
+                o.collateral, o.payin, o.payout, o.adhoc, o.realised_mtm, 
+                o.unrealised_mtm, o.stock_broker))
             print("\n----------------------------------------------------------------------\n")
         
     def printOrders(self, orders):

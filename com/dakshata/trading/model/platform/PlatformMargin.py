@@ -6,7 +6,7 @@ Represents a margin object.
 class PlatformMargin:
 
     def __init__(self, category, funds, utilized, available, \
-        net, span, exposure, collateral, \
+        total, net, span, exposure, collateral, \
         payin, payout, adhoc, realisedMtm, unrealisedMtm, \
         pseudoAccount, tradingAccount, \
         stockBroker, *args, **kwargs):
@@ -15,6 +15,7 @@ class PlatformMargin:
         self.funds = funds
         self.utilized = utilized
         self.available = available
+        self.total = total
         self.net = net
         self.span = span
         self.exposure = exposure
