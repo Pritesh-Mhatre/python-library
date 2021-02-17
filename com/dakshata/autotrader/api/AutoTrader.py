@@ -176,8 +176,8 @@ class AutoTrader:
 
         return self.__post("/modifyOrderByPlatformId", data)
 
-    def place_regular_order(self, pseudo_account, \
-            exchange, symbol, tradeType, orderType, \
+    def place_regular_order(self, pseudo_account,
+            exchange, symbol, tradeType, orderType,
             productType, quantity, price, triggerPrice=0.0):
         """
         Places a regular order (see API docs).
@@ -185,20 +185,20 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-regular-order/
         """
 
-        data = {'pseudoAccount': pseudo_account, \
-            'exchange': exchange, \
-            'symbol': symbol, \
-            'tradeType': tradeType, \
-            'orderType': orderType, \
-            'productType': productType, \
-            'quantity': quantity, \
+        data = {'pseudoAccount': pseudo_account,
+            'exchange': exchange,
+            'symbol': symbol,
+            'tradeType': tradeType,
+            'orderType': orderType,
+            'productType': productType,
+            'quantity': quantity,
             'price': price,
             'triggerPrice': triggerPrice}
 
         return self.__post("/placeRegularOrder", data)
 
-    def place_bracket_order(self, pseudo_account, \
-            exchange, symbol, tradeType, orderType, \
+    def place_bracket_order(self, pseudo_account,
+            exchange, symbol, tradeType, orderType,
             quantity, price, triggerPrice,
             target, stoploss, trailingStoploss=0.0):
         """
@@ -207,12 +207,12 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-bracket-order/
         """
 
-        data = {'pseudoAccount': pseudo_account, \
-            'exchange': exchange, \
-            'symbol': symbol, \
-            'tradeType': tradeType, \
-            'orderType': orderType, \
-            'quantity': quantity, \
+        data = {'pseudoAccount': pseudo_account,
+            'exchange': exchange,
+            'symbol': symbol,
+            'tradeType': tradeType,
+            'orderType': orderType,
+            'quantity': quantity,
             'price': price,
             'triggerPrice': triggerPrice,
             'target': target,
@@ -221,8 +221,8 @@ class AutoTrader:
 
         return self.__post("/placeBracketOrder", data)            
 
-    def place_cover_order(self, pseudo_account, \
-            exchange, symbol, tradeType, orderType, \
+    def place_cover_order(self, pseudo_account,
+            exchange, symbol, tradeType, orderType,
             quantity, price, triggerPrice):
         """
         Places a cover order (see API docs).
@@ -230,16 +230,50 @@ class AutoTrader:
         https://stocksdeveloper.in/documentation/api/place-cover-order/
         """
 
-        data = {'pseudoAccount': pseudo_account, \
-            'exchange': exchange, \
-            'symbol': symbol, \
-            'tradeType': tradeType, \
-            'orderType': orderType, \
-            'quantity': quantity, \
+        data = {'pseudoAccount': pseudo_account,
+            'exchange': exchange,
+            'symbol': symbol,
+            'tradeType': tradeType,
+            'orderType': orderType,
+            'quantity': quantity,
             'price': price,
             'triggerPrice': triggerPrice}
 
         return self.__post("/placeCoverOrder", data)
+
+    def place_advanced_order(self, variety, pseudo_account,
+            exchange, symbol, tradeType, orderType,
+            productType, quantity, price, triggerPrice,
+            target, stoploss, trailingStoploss,
+            disclosedQuantity, validity, amo,
+            strategyId, comments, publisherId):
+        """
+        Places an advanced order (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/place-advanced-order/
+        """
+
+        data = {'variety': variety,
+            'pseudoAccount': pseudo_account,
+            'exchange': exchange,
+            'symbol': symbol,
+            'tradeType': tradeType,
+            'orderType': orderType,
+            'productType': productType,
+            'quantity': quantity,
+            'price': price,
+            'triggerPrice': triggerPrice
+            'target': target,
+            'stoploss': stoploss,
+            'trailingStoploss': trailingStoploss,
+            'disclosedQuantity': disclosedQuantity,
+            'validity': validity,
+            'amo': amo,
+            'strategyId': strategyId,
+            'comments': comments,
+            'publisherId': publisherId}
+
+        return self.__post("/placeAdvancedOrder", data)
 
     def square_off_position(self, pseudo_account, \
         position_category, position_type, exchange, symbol):
