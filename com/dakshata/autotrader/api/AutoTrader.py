@@ -262,7 +262,7 @@ class AutoTrader:
             'productType': productType,
             'quantity': quantity,
             'price': price,
-            'triggerPrice': triggerPrice
+            'triggerPrice': triggerPrice,
             'target': target,
             'stoploss': stoploss,
             'trailingStoploss': trailingStoploss,
