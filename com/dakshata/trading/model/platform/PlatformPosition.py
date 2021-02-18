@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Represents a order object.
+Represents a position object.
 """
 
 from com.dakshata.trading.model.portfolio.Position import Position

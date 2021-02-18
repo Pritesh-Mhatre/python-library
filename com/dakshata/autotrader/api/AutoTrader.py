@@ -16,6 +16,7 @@ from com.dakshata.data.model.common.OperationResponse import OperationResponse
 from com.dakshata.trading.model.platform.PlatformMargin import PlatformMargin
 from com.dakshata.trading.model.platform.PlatformOrder import PlatformOrder
 from com.dakshata.trading.model.platform.PlatformPosition import PlatformPosition
+from com.dakshata.trading.model.platform.PlatformHolding import PlatformHolding
 
 class AutoTrader:
 
@@ -351,5 +352,22 @@ class AutoTrader:
             for m in response.result:
                 positions.append(PlatformPosition(**m))
             response.result = positions
+        
+        return response
+
+    def read_platform_holdings(self, pseudo_account):
+        """
+        API function to read positions from your trading platform (see API docs).
+
+        https://stocksdeveloper.in/documentation/api/read-holdings/
+        """
+
+        response = self.__get(pseudo_account, "/readPlatformHoldings")
+        
+        if response.result and isinstance(response.result, list):
+            holdings = []
+            for m in response.result:
+                holdings.append(PlatformHolding(**m))
+            response.result = holdings
         
         return response

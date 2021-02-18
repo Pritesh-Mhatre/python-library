@@ -15,8 +15,8 @@ class TestAutoTrader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        #TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
-        TestAutoTrader.__API = AutoTrader.create_instance('<api-key>', AutoTrader.SERVER_URL)
+        TestAutoTrader.__API = AutoTrader.create_instance('b25f5e2f-93cb-430e-a81d-f960a490034f', TestAutoTrader.__TEST_SERVER)
+        #TestAutoTrader.__API = AutoTrader.create_instance('<api-key>', AutoTrader.SERVER_URL)
         
     def printMargins(self, margins):
         for o in margins:
@@ -56,6 +56,18 @@ class TestAutoTrader(unittest.TestCase):
                 o.stock_broker, o.platform))
             print("\n----------------------------------------------------------------------\n")
         
+    def printHoldings(self, holdings):
+        for o in holdings:
+            pretty = "[Pseudo acc.: {}, Trading acc.: {}, " + \
+                "Exch: {}, Symbol: {}, Quantity: {}, Product: {}, ISIN: {}, " + \
+                "Collateral qty.: {}, T1 qty.: {}, Collateral type: {}, Pnl: {}, Haircut: {}, " + \
+                "Avg. price: {}, Inst. token: {}]"
+            print(pretty.format(o.pseudo_account, o.trading_account, 
+                o.exchange, o.symbol, o.quantity, o.product, o.isin, 
+                o.collateral_qty, o.t1_qty, o.collateral_type, o.pnl, o.haircut, 
+                o.avg_price, o.instrument_token))
+            print("\n----------------------------------------------------------------------\n")
+        
     def test_place_regular_order(self):
         """
         Test placing a regular order.
@@ -92,6 +104,20 @@ class TestAutoTrader(unittest.TestCase):
         # print(response)
         
         self.assertTrue(response.success())        
+        self.assertIsNotNone(response.result)
+        self.assertNotEqual('', response.result)
+        
+    def test_place_advanced_order(self):
+        """
+        Test placing an advanced order.
+        """
+        response = TestAutoTrader.__API.place_advanced_order( \
+            'REGULAR', '159401', 'NSE', 'SBIN', 'SELL', 'LIMIT', 'INTRADAY', \
+            1, 410.35, 0.0, 0.0, 0.0, 0.0, 0, 'DAY', False, '', '', '')
+        
+        # print(response)
+        
+        self.assertTrue(response.success())
         self.assertIsNotNone(response.result)
         self.assertNotEqual('', response.result)
         
@@ -211,6 +237,22 @@ class TestAutoTrader(unittest.TestCase):
         # print(*response.result, sep = "\n\n")
         
         self.printPositions(response.result)
+    
+    def test_read_platform_holdings(self):
+        """
+        Test reading holdings data.
+        """        
+        response = TestAutoTrader.__API.read_platform_holdings('159401')
+        
+        # print(response)
+        
+        self.assertTrue(response.success())
+        self.assertIsNotNone(response.result)
+        self.assertIsInstance(response.result, list)        
+        
+        # print(*response.result, sep = "\n\n")
+        
+        self.printHoldings(response.result)
     
 if __name__ == '__main__':
     unittest.main()
