@@ -26,7 +26,7 @@ class AutoTrader:
 
     __instances = {}
     
-    SERVER_URL = "https://stocksdeveloper.in:9017"
+    SERVER_URL = "https://api.stocksdeveloper.in"
 
     @staticmethod 
     def create_instance(api_key, service_url):
