@@ -1,4 +1,4 @@
-# Python library for single or multi-account automated trading on Zerodha, Upstox, AliceBlue, Finvasia, Angel Broking, Fyers
+# Python library for single or multi-account automated trading on Zerodha, Upstox, AliceBlue, Finvasia, Angel Broking, Fyers, IIFL
 
 ## Introduction
 **[AutoTrader Web](https://stocksdeveloper.in/autotrader-web/)** is our next generation automated trading & PMS software suite. **Most preferred tool by portfolio & fund managers, algorithmic traders as well as sub-brokers.**
@@ -30,6 +30,7 @@ Massively reduce trading costs based on following features:
   - Finvasia
   - Fyers
   - Angel Broking
+  - IIFL
 - A **[complete list of features](https://stocksdeveloper.in/autotrader-web-features/)**
 
 ## Help
