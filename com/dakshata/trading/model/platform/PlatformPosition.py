@@ -13,7 +13,8 @@ class PlatformPosition(Position):
         stockBroker, exchange, symbol, \
         independentExchange, independentSymbol, \
         category, ltp, platform, accountId, overnightQuantity, \
-        multiplier, realisedPnl, unrealisedPnl, *args, **kwargs):
+        multiplier, realisedPnl, unrealisedPnl, state, direction \
+        *args, **kwargs):
 
         super().__init__(id, buyQuantity, sellQuantity, netQuantity, \
             type, pnl, mtm, buyValue, sellValue, netValue, \
@@ -29,6 +30,8 @@ class PlatformPosition(Position):
         self.multiplier = multiplier
         self.realised_pnl = realisedPnl
         self.unrealised_pnl = unrealisedPnl
+        self.state = state
+        self.direction = direction
 
     def __str__(self):
         return super().__str__()
