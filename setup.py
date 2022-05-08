@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.3.1",
     author="Pritesh Mhatre",
     author_email="help@stocksdeveloper.in",
-    description="Python library for multi-account automated trading on Zerodha, Upstox, AliceBlue, Finvasia, Angel Broking, Fyers, IIFL",
+    description="Python library for multi-account automated trading on Zerodha, Upstox, AliceBlue, Finvasia, Angel Broking, Fyers, IIFL, 5Paisa, Profitmart, Mastertrust",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Pritesh-Mhatre/python-library",
