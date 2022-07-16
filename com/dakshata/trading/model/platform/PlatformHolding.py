@@ -9,7 +9,7 @@ class PlatformHolding:
         product, quantity, collateralQty, t1Qty, pnl, haircut, \
         avgPrice, pseudoAccount, tradingAccount, \
         stockBroker, exchange, symbol, \
-        platform, ltp, currentValue, totalQty *args, **kwargs):
+        platform, ltp, currentValue, totalQty, *args, **kwargs):
     
         self.id = id
         self.isin = isin
