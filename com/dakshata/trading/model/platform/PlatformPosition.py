@@ -14,13 +14,14 @@ class PlatformPosition(Position):
         independentExchange, independentSymbol, \
         category, ltp, platform, accountId, overnightQuantity, \
         multiplier, realisedPnl, unrealisedPnl, state, direction, \
+        atPnl, \
         *args, **kwargs):
 
         super().__init__(id, buyQuantity, sellQuantity, netQuantity, \
             type, pnl, mtm, buyValue, sellValue, netValue, \
             buyAvgPrice, sellAvgPrice, pseudoAccount, tradingAccount, \
             stockBroker, exchange, symbol, \
-            independentExchange, independentSymbol)
+            independentExchange, independentSymbol, atPnl)
     
         self.category = category
         self.ltp = ltp

@@ -9,7 +9,7 @@ class Position:
         type, pnl, mtm, buyValue, sellValue, netValue, \
         buyAvgPrice, sellAvgPrice, pseudoAccount, tradingAccount, \
         stockBroker, exchange, symbol, \
-        independentExchange, independentSymbol):
+        independentExchange, independentSymbol, atPnl):
         
         self.id = id        
         self.buy_quantity = buyQuantity
@@ -30,9 +30,10 @@ class Position:
         self.symbol = symbol
         self.independent_exchange = independentExchange
         self.independent_symbol = independentSymbol
+        self.atPnl = atPnl
 
     def __str__(self):
-        return "Position[{0},{1},{2},{3},{4},Net Qty={5},Pnl={6},M2m={7}]".format( \
+        return "Position[{0},{1},{2},{3},{4},Net Qty={5},Pnl={6},M2m={7},AtPnl={8}]".format( \
             self.pseudo_account, self.trading_account, self.type, \
             self.independent_exchange, self.independent_symbol, self.net_quantity, \
-            self.pnl, self.mtm)
+            self.pnl, self.mtm, self.atPnl)

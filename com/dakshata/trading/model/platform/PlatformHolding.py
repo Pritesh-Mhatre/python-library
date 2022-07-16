@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Represents a order object.
+Represents a holding object.
 """
 
 class PlatformHolding:
@@ -9,7 +9,7 @@ class PlatformHolding:
         product, quantity, collateralQty, t1Qty, pnl, haircut, \
         avgPrice, pseudoAccount, tradingAccount, \
         stockBroker, exchange, symbol, \
-        platform, *args, **kwargs):
+        platform, ltp, currentValue, totalQty *args, **kwargs):
     
         self.id = id
         self.isin = isin
@@ -28,6 +28,9 @@ class PlatformHolding:
         self.exchange = exchange
         self.symbol = symbol
         self.platform = platform
+        self.ltp = ltp
+        self.currentValue = currentValue
+        self.totalQty = totalQty
 
     def __str__(self):
         return ("Margin[Pseudo Acc: {0}, Trading Acc: {1}, Broker: {2}, "
