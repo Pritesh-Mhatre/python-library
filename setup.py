@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="AutoTrader-Web-API-Stocks-Developer",
-    version="1.3.3",
+    version="1.3.4",
     author="Pritesh Mhatre",
     author_email="help@stocksdeveloper.in",
     description="Python trading API library for Zerodha, Upstox, AliceBlue, Finvasia, Angel One, Fyers, IIFL, 5Paisa, Profitmart, Mastertrust, Edelweiss, Motilal Oswal, Kotak Securities",
